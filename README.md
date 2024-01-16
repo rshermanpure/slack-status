@@ -1,9 +1,13 @@
+# Slack Status
+Sets your slack status to a punny computer science joke every morning using playwright.
+
 # Install
 ## Set auth:
-npx playwright open --save-storage=".auth/user.json"
+`npx playwright open --save-storage=".auth/user.json"`
 
-Then do the whole auth flow for slack:
+Then do the whole auth flow for slack, i.e., open a browser to
 https://YOUR-SLACK-TEAM.slack.com/
+Click on login, enter your credentials, etc. You should only have to do this once.
 
 This will write the session state to .auth/user.json.
 
@@ -22,7 +26,6 @@ SLACK_TITLE=NAME_OF_YOUR_ORG
 # To set status manually:
 npx playwright test tests/set-status.spec.ts
 
-# To run automatically
 # Example script to run cron every day at 8:15AM
 
 crontab -e
@@ -36,10 +39,9 @@ https://osxdaily.com/2022/11/10/how-to-schedule-boot-turn-on-shutdown-wake-sleep
 
 `pmset repeat wakeorpoweron MTWRF 8:00:00`
 
+You can also consider running this from a virtual private server or GitHub action instead.
 
 # debug:
-npx playwright test tests/set-status.spec.ts --headed
+You can watch the script run using --headed to figure out where it broke. Most likely an auth issue. 
 
-
-# Ideas
-- Run this from linux instead, e.g., a VPC server 
+`npx playwright test tests/set-status.spec.ts --headed`
