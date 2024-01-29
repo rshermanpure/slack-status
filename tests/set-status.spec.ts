@@ -7,18 +7,24 @@ const authFile = ".auth/user.json";
 
 test.use({ storageState: authFile });
 
-function getRandomStatus(): number {
+function getStatus(): string {
   const records = parse(fs.readFileSync(path.join(__dirname, "input.csv")), {
     columns: false,
     skip_empty_lines: true,
   });
 
-  const line = Math.floor(Math.random() * records.length)  
-  return records[line][0];
+  const currentDate = new Date();
+
+  const dayOfMonth = currentDate.getDate();
+
+  // OLD: returns status randomly
+  // const line = Math.floor(Math.random() * records.length)
+  // NEW: returns status based on day of month 
+  return records[dayOfMonth % records.length][0];
 }
 
 test("update-status", async ({ page }) => {
-  const status = getRandomStatus()
+  const status = getStatus()
 
   await page.goto(process.env.SLACK_URL);
   const title = new RegExp(process.env.SLACK_TITLE)
