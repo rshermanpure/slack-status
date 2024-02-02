@@ -1,8 +1,6 @@
 # Slack Status
 Sets your slack status to a punny computer science joke every morning using playwright.
 
-⚠️ Fails silently occasionally. Unclear if this is cron's fault or playwright's. 
-
 # Install
 ## Set auth:
 `npx playwright open --save-storage=".auth/user.json"`
