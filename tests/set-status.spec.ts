@@ -13,13 +13,12 @@ function getStatus(): string {
     skip_empty_lines: true,
   });
 
-  const currentDate = new Date();
+  // const line = Math.floor(Math.random() * records.length) // returns a random status
 
+  // NEW: returns status based on day of month 
+  const currentDate = new Date();
   const dayOfMonth = currentDate.getDate();
 
-  // OLD: returns status randomly
-  // const line = Math.floor(Math.random() * records.length)
-  // NEW: returns status based on day of month 
   return records[dayOfMonth % records.length][0];
 }
 
@@ -28,9 +27,14 @@ test("update-status", async ({ page }) => {
 
   await page.goto(process.env.SLACK_URL);
   const title = new RegExp(process.env.SLACK_TITLE)
-  await expect(page).toHaveTitle(title);
+
+  await expect(page).toHaveTitle(title); // Ensure the page has loaded
+
   await page.getByTestId('user-button').click();
   await page.getByTestId('main-menu-custom-status-item').click();
+
+  await expect(page.getByTestId('custom_status_input_go')).toHaveText('Save') // Make sure there's not already a status.
+
   await page.getByRole('paragraph').click();
   await page.getByTestId('custom_status_input_body').getByLabel('Status').fill(status);
   await page.getByTestId('custom_status_input_go').click();

@@ -1,6 +1,8 @@
 # Slack Status
 Sets your slack status to a punny computer science joke every morning using playwright.
 
+⚠️ Fails silently occasionally. Unclear if this is cron's fault or playwright's. 
+
 # Install
 ## Set auth:
 `npx playwright open --save-storage=".auth/user.json"`
@@ -17,14 +19,18 @@ This will write the session state to .auth/user.json.
 You can find node path and npx path by doing `which node` and `which npx`
 NODE_PATH=/path/to/node
 NPX_PATH=/path/to/npx
-
-NOTE: The slack URL must be in the form https://app.slack.com/client/SOMEIDSTUFF/MOREIDSTUFF
-You can get the URL by logging in through the web browser
-
 SLACK_TITLE=NAME_OF_YOUR_ORG
+SLACK_URL=https://app.slack.com/client/SOMEIDSTUFF/MOREIDSTUFF
 
-# To set status manually:
-npx playwright test tests/set-status.spec.ts
+NOTE: You can get the SLACK_URL by logging in through the web browser
+
+
+# To run the status setter:
+`npx playwright test tests/set-status.spec.ts`
+
+or
+
+`./run.sh`
 
 # Example script to run cron every day at 8:15AM
 
@@ -41,7 +47,12 @@ https://osxdaily.com/2022/11/10/how-to-schedule-boot-turn-on-shutdown-wake-sleep
 
 You can also consider running this from a virtual private server or GitHub action instead.
 
-# debug:
-You can watch the script run using --headed to figure out where it broke. Most likely an auth issue. 
+# Setting an emoji with the status
+This is turns out to be sort of hard. There's no way to "paste" in an emoji to the status setter, you have to select from the list, which means finding the emoji name, e.g., if you want 😀 to be the status, you need to have the slack identifier "grinning emoji" somewhere in `input.csv`.
 
+# Debug:
+You can step through the script run using --debug flag. 
+`npx playwright test --debug`
+
+Watch the whole script run:
 `npx playwright test tests/set-status.spec.ts --headed`
