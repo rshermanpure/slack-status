@@ -33,6 +33,14 @@ or
 
 `./run.sh`
 
+# Changing the statuses that are set
+Based on the day of the month, it picks the line in `tests/input.csv` for which status to put. Eg., Feb 5 == Line 5 in the file. So, update `tests/input.csv` to change the statuses it will automatically set.
+
+NOTE: there is a maximum status length on slack's end, the script will fail if you exceed that length. 
+
+# Setting an emoji with the status
+Currently not possible. This is turns out to be sort of hard. There's no way to "paste" in an emoji to the status setter, you have to select from the list, which means finding the emoji name, e.g., if you want 😀 to be the status, you need to have the slack identifier "grinning emoji" somewhere in `input.csv`.
+
 # Debug:
 You can step through the script run using --debug flag:
 
@@ -60,6 +68,9 @@ https://osxdaily.com/2022/11/10/how-to-schedule-boot-turn-on-shutdown-wake-sleep
 
 You can also consider running this from a virtual private server or GitHub action instead.
 
-# TODO
-- Set an emoji with your status.
-  - This is turns out to be sort of hard. There's no way to "paste" in an emoji to the status setter, you have to select from the list, which means finding the emoji name, e.g., if you want 😀 to be the status, you need to have the slack identifier "grinning emoji" somewhere in `input.csv`.
+# Debug:
+You can step through the script run using --debug flag. 
+`npx playwright test --debug`
+
+Watch the whole script run:
+`npx playwright test tests/set-status.spec.ts --headed`
