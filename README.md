@@ -1,5 +1,5 @@
 # Slack Status
-Sets your slack status to a punny computer science joke every morning using playwright.
+Sets your slack status automatically using playwright.
 
 # Install
 ## Set auth:
@@ -24,7 +24,6 @@ SLACK_URL=https://app.slack.com/client/SOMEIDSTUFF/MOREIDSTUFF
 
 NOTE: You can get the SLACK_URL by logging in to your slack channel through the web browser
 
-
 # Run the script
 `npx playwright test tests/set-status.spec.ts`
 
@@ -39,16 +38,7 @@ Based on the day of the month, it picks the line in `tests/input.csv` for which 
 NOTE: there is a maximum status length on slack's end, the script will fail if you exceed that length. 
 
 # Setting an emoji with the status
-Currently not possible. This is turns out to be sort of hard. There's no way to "paste" in an emoji to the status setter, you have to select from the list, which means finding the emoji name, e.g., if you want 😀 to be the status, you need to have the slack identifier "grinning emoji" somewhere in `input.csv`.
-
-# Debug:
-You can step through the script run using --debug flag:
-
-`npx playwright test --debug`
-
-Watch the whole script run:
-
-`npx playwright test tests/set-status.spec.ts --headed`
+Currently not possible. This is turns out to be sort of hard. There's no way to "paste" in an emoji to the status setter, you have to select from the list, which means finding the emoji name, e.g., if you want 😀 to be the status, you need to have the slack identifier "grinning emoji" somewhere in `input.csv`. If you find a way to do this, please create a PR! 
 
 # Scheduling a status
 In your terminal, run:
